@@ -1,5 +1,6 @@
 Usage
 
-pip install sportsipy --user
+pip install beautifulsoup4
+pip install requests
 
-then run the file
+then run the file soupScraper.py
