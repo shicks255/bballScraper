@@ -5,6 +5,18 @@ import requests
 from datetime import date
 from datetime import timedelta
 
+def create_line(length):
+    line = ""
+    for x in range(0, length):
+        line += '-'
+    return line
+
+def create_right_ending(length):
+    line = ""
+    for x in range(0, 43 - length):
+        line += ' '
+    return line + '|'
+
 def process_date(date):
     formattedDate = date.strftime('%Y%m%d')
     url = 'https://espn.com/mens-college-basketball/schedule/_/date/' + formattedDate
@@ -16,11 +28,13 @@ def process_date(date):
     results = soup.select('.teams__col')
 
     if (date != date.today()):
+        print('')
         print('Yesterday\'s Close Games')
-        print('---------------------------')
+        print(create_line(50))
     else:
+        print('')
         print('Today\'s Close Games')
-        print('---------------------------')
+        print(create_line(50))
 
     for result in results:
         score = result.findChildren('a')[0].getText(strip = True)
@@ -40,8 +54,9 @@ def process_date(date):
             fullTeamNames = result.fetchPreviousSiblings('td')
             team1 = fullTeamNames[0].getText(strip = True).replace('@', '')
             team2 = fullTeamNames[1].getText(strip = True).replace('@', '')
-            print('| ' + team1 + ' vs ' + team2 + ' |')
-            print('------------------------')
+            print('| ' + team1 + ' vs ' + team2 + create_right_ending(len(team1) + len(team2)))
+        
+    print(create_line(50))
 
 today = date.today()
 yesterday = today - timedelta(days = 1)
