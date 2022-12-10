@@ -1,6 +1,7 @@
 
 import bs4
 import requests
+import re
 
 from datetime import date
 from datetime import timedelta
@@ -39,14 +40,9 @@ def process_date(date):
     for result in results:
         score = result.findChildren('a')[0].getText(strip = True)
         scores = score.split(',')
-        team1AndScore = scores[0].split()
-        team2AndScore = scores[1].split()
 
-        team1 = team1AndScore[0]
-        team2 = team2AndScore[0]
-
-        score1 = team1AndScore[1]
-        score2 = team2AndScore[1]
+        score1 = re.search('\d+', scores[0]).group()
+        score2 = re.search('\d+', scores[1]).group()
 
         scoreDiff = abs(int(score1) - int(score2))
 
