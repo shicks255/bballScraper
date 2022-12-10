@@ -16,10 +16,10 @@ def process_date(date):
     results = soup.select('.teams__col')
 
     if (date != date.today()):
-        print('Close Games Yesterday')
+        print('Yesterday\'s Close Games')
         print('---------------------------')
     else:
-        print('Close Games Today')
+        print('Today\'s Close Games')
         print('---------------------------')
 
     for result in results:
@@ -46,5 +46,5 @@ def process_date(date):
 today = date.today()
 yesterday = today - timedelta(days = 1)
 
-process_date(today)
 process_date(yesterday)
+process_date(today)
